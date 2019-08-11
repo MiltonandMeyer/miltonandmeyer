@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-standardpage{% endblock %}
+
+
+{% block content %}
+<content class="content">
+{% with blocks=page.body %}
+  {% for block in blocks %}
+    {% if block.block_type == 'paragraph_text' %}
+      <div class="paragraph-text">
+        {{ block.value }}
+      </div>
+    {% elif block.block_type == 'video' %}
+      <div class="video">
+        {{ block.value }}
+      </div>
+    {% elif block.block_type == 'image' %}
+    <div class="image-block">
+      {% include_block block %}
+    </div>
+      #{% image block.value.image original class="image-block" %}
+    {% else %}
+      {% include_block block %}
+    {% endif %}
+  {% endfor %}
+{% endwith %}
+</content>
+{% endblock %}

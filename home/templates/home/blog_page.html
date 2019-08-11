@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+<div class="blog">
+    <h2 class="paragraph-text">{{ page.blog_title }}<h2>
+    <h4 class="paragraph-text">{{ page.date }}<h4>
+    <h3 class="content">{{ page.intro }}</h3>
+    <div class="paragraph-text">{{ page.body | richtext }}</div>
+    <h5 class="author-text">Written By {{ page.author }}</h5>
+<div class="blog">
+{% endblock %}

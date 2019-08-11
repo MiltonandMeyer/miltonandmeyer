@@ -1,0 +1,9 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<article class="latest-blog">
+  <div class="preview-text">
+    <h2>{{ value.title }}</h2>
+    <p> {{ value.text }} </p>
+  </div>
+  {% image value.image max-500x500 %}
+</article>
