@@ -6,7 +6,7 @@
 
 	{% block content %}
     <nav class="main-banner">
-      {% for block in page.site_styles %}
+      <!-- {% for block in page.site_styles %}
 				  {% image  block.value.site_image original as banner_image %}
         <a class="site-subject-area {{ block.value.site.get_site.site_name }}" href="{{ block.value.site.url }}" style="background: linear-gradient(to bottom, rgba({{ block.value.site_colour }},0.6), rgba({{ block.value.site_colour }}, 0.6)), url({{ banner_image.url }}); background-size: 100% 100%;">
           <h1>{{ block.value.site.get_site.site_name }}</h1>
@@ -15,7 +15,21 @@
               {{ block.value.site_blurb }}
             </div>
         </a>
-        {% endfor %}
+        {% endfor %} -->
+				{% with settings=settings.home.SiteStyleSettings.style %}
+				{% for block in settings %}
+					{% for subject in page.pages %}
+						{% if subject.value.title == block.value.site.title %}
+						{% image block.value.site_image original as banner_image %}
+		        <a class="site-subject-area {{ block.value.site.title }}" href="{{ block.value.site.url }}" style="background: linear-gradient(to bottom, rgba({{ block.value.site_colour }},0.6), rgba({{ block.value.site_colour }}, 0.6)), url({{ banner_image.url }}); background-size: 100% 100%;">
+		          <h1>{{ block.value.site.title }}</h1>
+		          <div class="horizontal-line"></div>
+		            <div class="hidden-overview">
+		              {{ block.value.site_blurb }}
+		            </div>
+		        </a>
+						{% endif %}
+	        {% endfor %}  {% endfor %}{% endwith %}
         <!-- <a class="site-subject-area ag" href="#">
           <h1>Agriculture</h1>
             <ul class="hidden-overview">

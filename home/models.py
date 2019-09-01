@@ -23,8 +23,11 @@ class HomePage(Page):
             related_name='+',
     )
     site_styles = StreamField([
-                    ('top_left_site', cblocks.SiteThemeBlock()),
+                    ('one_site_area', cblocks.SiteThemeBlock()),
     ], blank=True);
+    pages = StreamField([
+    ('site_subject', blocks.PageChooserBlock())
+    ], blank=True)
 
 
 
@@ -39,7 +42,7 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('center_field'),
-        StreamFieldPanel('site_styles'),
+        StreamFieldPanel('pages'),
         StreamFieldPanel('about'),
     ]
 
@@ -73,6 +76,17 @@ class BlogPageGalleryImage(Orderable):
 
 class StandardPage(Page):
     #date = models.DateField("Publishing Date")
+    #site_style = StreamField([
+    #                        ('site_theme', cblocks.SiteThemeBlock()),
+    #], blank=True)
+    overall_site = models.ForeignKey(
+        'home.StandardPage',
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     body = StreamField([('image', ImageChooserBlock()),
                         ('dark_block_heading', cblocks.HeadingandSubHeadingBlock(classname='full title')),
                         ('paragraph_text', blocks.RichTextBlock()),
@@ -83,5 +97,6 @@ class StandardPage(Page):
     ])
 
     content_panels = Page.content_panels + [
+        PageChooserPanel('overall_site'),
         StreamFieldPanel('body')
     ]

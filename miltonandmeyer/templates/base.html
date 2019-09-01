@@ -8,7 +8,7 @@
         <meta charset="utf-8" />
         <title>
             {% block title %}
-                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.get_site.site_name }}-{{ self.title }}{% endif %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
             {% endblock %}
             {% block title_suffix %}
                 {% with self.get_site.site_name as site_name %}
@@ -33,14 +33,12 @@
       {% block header %}
       <nav class="nav">
 				<div class="logo">
-    		    <a href="{{ settings.home.NavigationMenuBarSettings.menu.main_welcome_page.url }}" class="logo">Milton & Meyer</a>
+    		    <a href="{{ settings.home.NavigationMenuBarSettings.main_welcome_page.url }}" class="logo">Milton & Meyer</a>
 				</div>
 				<div class="site-links">
         {% for block in settings.home.NavigationMenuBarSettings.menu %}
           {% if block.value.internal_link.slug == 'home' %}
-          {% elif block.value.internal_link.url == page.url %}
-            <a href="{{ block.value.internal_link }}" id="current-page">{{ block.value.link_text }}</a>
-          {% elif block.value.internal_link.get_site == page.get_site %}
+          {% elif block.value.internal_link.url == page.overall_site.url %}
             <a href="{{ block.value.internal_link.url }}" id="current-page">{{ block.value.link_text }}</a>
           {% else %}
             <a href="{{ block.value.internal_link.url }}">{{ block.value.link_text }}</a>
@@ -51,16 +49,19 @@
 		  </nav>
       {% with settings=settings.home.SiteStyleSettings.style %}
       {% for block in settings %}
-      {% image block.value.site_image original as banner_image %}
-      <header style="background: linear-gradient(to bottom, rgba({{ block.value.site_colour }},0.6), rgba({{ block.value.site_colour }}, 0.6)), url({{ banner_image.url }}); background-size: 100% 100%;">
-        <div class="header-banner {{ block.value.site.get_site.site_name }}">
-        <h1>{{ self.get_site.site_name }}</h1>
-          <div class="hidden-overview">
-            {{ block.value.site_blurb }}
+        {% if self.overall_site.title == block.value.site.title %}
+          {% image block.value.site_image original as banner_image %}
+          <header style="background: linear-gradient(to bottom, rgba({{ block.value.site_colour }},0.6), rgba({{ block.value.site_colour }}, 0.6)), url({{ banner_image.url }}); background-size: 100% 100%;">
+            <div class="header-banner {{ block.value.site.title }}">
+            <h1>{{ block.value.site.title }}</h1>
+              <div class="hidden-overview">
+                {{ block.value.site_blurb }}
+              </div>
           </div>
-      </div>
+          </header>
+        {% endif %}
       {% endfor %} {% endwith %}
-      </header>{% endblock %}
+      {% endblock %}
 
       <main>
         {% block content %}{% endblock %}

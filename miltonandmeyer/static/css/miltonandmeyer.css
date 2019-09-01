@@ -73,7 +73,6 @@ a.Travel {
   grid-area: block4;
 }
 a.site-subject-area:hover {
-
   text-decoration-color: #00F5FF:
 }
 .horizontal-line {
@@ -90,14 +89,13 @@ a.site-subject-area:hover {
 .Law:hover .hidden-overview, .Agriculture:hover .hidden-overview, .Sport:hover .hidden-overview, .Travel:hover .hidden-overview {
   display: block;
   cursor:pointer;
-  margin-left:  50px;
+  position: absolute;
+  margin-top: -7vh;
+  margin-left: 5vh;
   text-decoration: none;
-  font-size: .5em;
+  font-size: 1em;
 }
 
-.hidden {
-  display:none;
-}
 .visible {
   display: block;
 }
@@ -137,8 +135,8 @@ a.site-subject-area:hover {
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 4%;
-  padding-bottom: 4%;
-  color: #000000;
+  padding-bottom: 3%;
+  color: #000000 !important;
 }
 .site-links a:hover {
   text-decoration: underline;
