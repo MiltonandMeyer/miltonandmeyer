@@ -49,6 +49,14 @@ class BlogPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank="True")
     author = models.CharField(max_length=250)
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
+    def main_image(self):
+        gallery_item = self.gallery_images.first()
+        if gallery_item:
+            return gallery_item.image
+        else:
+            return None
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
@@ -57,19 +65,52 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('blog_title'),
-        FieldPanel('date'),
+        MultiFieldPanel([
+            FieldPanel('date'),
+            FieldPanel('tags'),
+            ], heading="Blog Information"),
         FieldPanel('author'),
         FieldPanel('intro'),
         FieldPanel('body', classname='full'),
+        InlinePanel('gallery_images', label="Gallery images"),
     ]
+
+class BlogIndexPage(Page):
+   intro = RichTextField(blank=True)
+
+   def get_context(self, request): #update context to include only published posts and order reverse chron
+       context=super().get_context(request)
+       blogpages=self.get_children().live().order_by('-first_published_at')
+       context['blogpages']= blogpages
+       return context
 
 class BlogPageGalleryImage(Orderable):
     page=ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
     image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
     caption = models.CharField(blank=True, max_length=250)
+
     panels = [ImageChooserPanel('image'),
               FieldPanel('caption'),
               ]
+
+class BlogPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'BlogPage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+    )
+
+class BlogTagIndexPage(Page):
+
+    def get_context(self, request):
+        # Filter by tag
+        tag = request.GET.get('tag')
+        blogpages = BlogPage.objects.filter(tags__name=tag)
+        # Update template context
+        context = super().get_context(request)
+        context['blogpages'] = blogpages
+        return context
+
 
 class StandardPage(Page):
     #date = models.DateField("Publishing Date")
