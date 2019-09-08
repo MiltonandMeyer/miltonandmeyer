@@ -20,7 +20,7 @@
 				{% for block in settings %}
 					{% for subject in page.pages %}
 						{% if subject.value.title == block.value.site.title %}
-						{% image block.value.site_image original as banner_image %}
+						{% image block.value.site_image fill-1000x500 as banner_image %}
 		        <a class="site-subject-area {{ block.value.site.title }}" href="{{ block.value.site.url }}" style="background: linear-gradient(to bottom, rgba({{ block.value.site_colour }},0.6), rgba({{ block.value.site_colour }}, 0.6)), url({{ banner_image.url }}); background-size: 100% 100%;">
 		          <h1>{{ block.value.site.title }}</h1>
 		          <div class="horizontal-line"></div>

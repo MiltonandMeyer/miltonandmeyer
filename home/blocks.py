@@ -48,11 +48,13 @@ class ArticlePreviewBlock(StructBlock):
 
     class Meta:
         icon = "cogs"
+        template = "home/Article-Preview-Block.html"
 
 class TextImageBlock(StructBlock):
     title = blocks.CharBlock(required=False, classname="full title")
     text = blocks.RichTextBlock()
     image = ImageChooserBlock()
+    link_page = blocks.PageChooserBlock(required=False, blank=True)
 
     class Meta:
         icons = "cogs"

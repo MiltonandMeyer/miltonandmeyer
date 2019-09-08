@@ -58,8 +58,17 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
+    overall_site = models.ForeignKey(
+        'home.StandardPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('blog_title'),
+        PageChooserPanel('overall_site'),
         FieldPanel('date'),
         FieldPanel('author'),
         FieldPanel('intro'),
@@ -83,6 +92,7 @@ class StandardPage(Page):
         'home.StandardPage',
         null=True,
         blank=False,
+        help_text="This sets the style for the heading of the page. So if you want an article under the Sports page, you can have the same heading for all sports pages",
         on_delete=models.SET_NULL,
         related_name='+',
     )
