@@ -46,6 +46,7 @@ body {
   font-family: 'Karla', sans-serif;
   font-size: 1.313em;
   font-weight: 700;
+  color: #FFFFFF;
 }
 a.site-subject-area{
   display: inline-block;
@@ -80,7 +81,7 @@ a.site-subject-area:hover {
   width: 30%;
   border-bottom: 1vh solid #00F5FF;
   position: absolute;
-  margin-top: -8vh;
+  margin-top: -6vh;
   margin-left: 5vh;
 }
 .Law:hover .horizontal-line, .Agriculture:hover .horizontal-line, .Sport:hover .horizontal-line, .Travel:hover .horizontal-line {
