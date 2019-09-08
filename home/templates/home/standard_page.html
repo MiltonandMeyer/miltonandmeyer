@@ -10,7 +10,7 @@
 {% with blocks=page.body %}
   {% for block in blocks %}
     {% if block.block_type == 'paragraph_text' %}
-      <div class="paragraph-text">
+      <div class="paragraph-text rich-text-body-content">
         {{ block.value }}
       </div>
     {% elif block.block_type == 'video' %}
