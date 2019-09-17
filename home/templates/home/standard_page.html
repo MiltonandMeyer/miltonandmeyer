@@ -19,7 +19,7 @@
       </div>
     {% elif block.block_type == 'image' %}
     <div class="image-block">
-      {% include_block block %}
+      {% image block.value.image original class="image-block" %}
     </div>
       #{% image block.value.image original class="image-block" %}
     {% else %}

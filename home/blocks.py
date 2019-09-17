@@ -6,6 +6,18 @@ from django.db import models
 from wagtail.core.models import Orderable
 from wagtail.core.fields import RichTextField, StreamField
 
+class ContactEmailBlock(StructBlock):
+    email = blocks.EmailBlock()
+    email_text = blocks.CharBlock(max_length=255)
+
+class ContactPhoneBlock(StructBlock):
+    phone_number = blocks.IntegerBlock()
+    phone_text = blocks.CharBlock(max_length=255)
+
+class ImageWithCaptionBlock(StructBlock):
+    image = ImageChooserBlock()
+    caption = blocks.CharBlock(max_length=250)
+
 class SiteThemeBlock(StructBlock):
     BLUE = '87,144,212'
     GREEN = '86,207,140'
@@ -21,7 +33,7 @@ class SiteThemeBlock(StructBlock):
     )
     site_colour = blocks.ChoiceBlock(choices=COLOUR_CHOICES, help_text="Pick a colour",)
     site = blocks.PageChooserBlock()
-    site_image = ImageChooserBlock()
+    site_image = ImageWithCaptionBlock()
     site_blurb = blocks.RichTextBlock()
 
 
@@ -43,7 +55,7 @@ class HeadingandSubHeadingBlock(StructBlock):
 class ArticlePreviewBlock(StructBlock):
     title = blocks.CharBlock(classname="full title")
     excerpt = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageWithCaptionBlock()
     link_page = blocks.PageChooserBlock()
 
     class Meta:
@@ -53,7 +65,7 @@ class ArticlePreviewBlock(StructBlock):
 class TextImageBlock(StructBlock):
     title = blocks.CharBlock(required=False, classname="full title")
     text = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageWithCaptionBlock()
     link_page = blocks.PageChooserBlock(required=False, blank=True)
 
     class Meta:

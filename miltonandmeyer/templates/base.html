@@ -50,7 +50,7 @@
       {% with settings=settings.home.SiteStyleSettings.style %}
       {% for block in settings %}
         {% if self.overall_site.title == block.value.site.title %}
-          {% image block.value.site_image original as banner_image %}
+          {% image block.value.site_image.image original as banner_image %}
           <header style="background: linear-gradient(to bottom, rgba({{ block.value.site_colour }},0.6), rgba({{ block.value.site_colour }}, 0.6)), url({{ banner_image.url }}); background-size: 100% 100%;">
             <div class="header-banner {{ block.value.site.title }}">
             <h1>{{ block.value.site.title }}</h1>

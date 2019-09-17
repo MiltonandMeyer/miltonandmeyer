@@ -3,7 +3,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core import blocks
-from wagtail.core.blocks import PageChooserBlock, CharBlock, URLBlock
+from wagtail.core.blocks import PageChooserBlock, CharBlock, URLBlock, EmailBlock, IntegerBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 import home.blocks as cblocks
 from wagtail.admin.edit_handlers import StreamFieldPanel, PageChooserPanel
@@ -43,16 +43,22 @@ class SiteFooterSettings(BaseSetting):
                                 ('external_link_block', cblocks.ExternalLinkBlock()),
                                 ('short_text', CharBlock(max_length=300)),
                                 ('external_document', DocumentChooserBlock()),
-    ])
+                                ('contact_email', cblocks.ContactEmailBlock()),
+                                ('contact_phone_number', cblocks.ContactPhoneBlock()),
+                                ])
     middle_column = StreamField([('internal_link_block', cblocks.InternalLinkBlock()),
                                 ('external_link_block', cblocks.ExternalLinkBlock()),
                                 ('short_text', CharBlock(max_length=300)),
                                 ('external_document', DocumentChooserBlock()),
+                                ('contact_email', cblocks.ContactEmailBlock()),
+                                ('contact_phone_number', cblocks.ContactPhoneBlock()),
     ])
     right_column = StreamField([('internal_link_block', cblocks.InternalLinkBlock()),
                                 ('external_link_block', cblocks.ExternalLinkBlock()),
                                 ('short_text', CharBlock(max_length=300)),
                                 ('external_document', DocumentChooserBlock()),
+                                ('contact_email', cblocks.ContactEmailBlock()),
+                                ('contact_phone_number', cblocks.ContactPhoneBlock()),
     ])
 
     panels = [

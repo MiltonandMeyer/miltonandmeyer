@@ -31,7 +31,7 @@ class HomePage(Page):
 
 
 
-    about = StreamField([('image', ImageChooserBlock()),
+    about = StreamField([('image', cblocks.ImageChooserBlock()),
                         ('dark_block_heading', cblocks.HeadingandSubHeadingBlock(classname='full title')),
                         ('paragraph_text', blocks.RichTextBlock()),
                         ('article_preview', cblocks.ArticlePreviewBlock()),
@@ -97,7 +97,7 @@ class StandardPage(Page):
         related_name='+',
     )
 
-    body = StreamField([('image', ImageChooserBlock()),
+    body = StreamField([('image', cblocks.ImageWithCaptionBlock()),
                         ('dark_block_heading', cblocks.HeadingandSubHeadingBlock(classname='full title')),
                         ('paragraph_text', blocks.RichTextBlock()),
                         ('article_preview', cblocks.ArticlePreviewBlock()),
