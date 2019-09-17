@@ -91,7 +91,7 @@ class StandardPage(Page):
     overall_site = models.ForeignKey(
         'home.StandardPage',
         null=True,
-        blank=False,
+        blank=True,
         help_text="This sets the style for the heading of the page. So if you want an article under the Sports page, you can have the same heading for all sports pages",
         on_delete=models.SET_NULL,
         related_name='+',
